@@ -28,6 +28,19 @@ By default the server listens on `http://localhost:5000` and `https://localhost:
 
 There is no `ApiKey` setting — each customer supplies their own key at connection time.
 
+## Deploying to Azure App Service
+
+A GitHub Actions workflow (`.github/workflows/deploy-remote-mcp-server.yml`) builds and deploys the server automatically on every push to `main` that touches `RemoteMcpServer/`. You can also trigger it manually from the GitHub Actions UI.
+
+Add these two secrets in your GitHub repo under **Settings → Secrets and variables → Actions**:
+
+| Secret | Where to get it |
+|--------|-----------------|
+| `AZURE_WEBAPP_NAME` | The name of your App Service resource in Azure |
+| `AZURE_WEBAPP_PUBLISH_PROFILE` | Azure portal → your App Service → **Get publish profile** — paste the entire contents of the downloaded XML file |
+
+The workflow publishes a framework-dependent `linux-x64` build, so the App Service must have the .NET 8 runtime installed. In Azure portal, set the **Stack** to **.NET** and **Version** to **.NET 8** under **Configuration → General settings**.
+
 ## Publishing a self-contained binary
 
 ```bash
