@@ -2,7 +2,7 @@ using System.ComponentModel;
 using ModelContextProtocol.Server;
 using Newtonsoft.Json;
 
-namespace ExternalApiMcpServer;
+namespace LocalMcpServer;
 
 [McpServerToolType]
 public class FerretlyApiTools
