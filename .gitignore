@@ -1,0 +1,30 @@
+# Build output
+bin/
+obj/
+publish/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# VS Code
+.vscode/
+
+# NuGet
+.nuget/
+*.nupkg
+packages/
+
+# User-specific settings
+launchSettings.json
+local.settings.json
+
+# Rider
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
