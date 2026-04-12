@@ -1,0 +1,3190 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Ferretly External API",
+    "description": "The Ferretly External API allows integration partners to create and manage subjects, initiate background screenings, and retrieve screening results programmatically.",
+    "contact": {
+      "name": "Ferretly Integrations",
+      "email": "integrations@ferretly.com"
+    },
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "https://blackfootexternalapi.azurewebsites.net/"
+    }
+  ],
+  "paths": {
+    "/api/ApiClient": {
+      "get": {
+        "tags": [
+          "ApiClient"
+        ],
+        "summary": "Get information about the API client associated with the API key found in the request header",
+        "description": "Using the API key found in the request header, return information about the API client",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiClient"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiClient"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiClient"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ApiClient/updateWebHook": {
+      "post": {
+        "tags": [
+          "ApiClient"
+        ],
+        "summary": "Update the web hook url associated with the API client. This is the URL which will receive callbacks from Ferretly",
+        "requestBody": {
+          "description": "The new URL to use.",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiClient"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiClient"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiClient"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ApiClient/refreshApiKey": {
+      "get": {
+        "tags": [
+          "ApiClient"
+        ],
+        "summary": "Refresh the API key associated with an API client.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiClientWithApiKey"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiClientWithApiKey"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiClientWithApiKey"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ApiClient/getOrganization": {
+      "get": {
+        "tags": [
+          "ApiClient"
+        ],
+        "summary": "Get the Ferretly Data.DTO.Organization related to the API key",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ApiClient/updateClientSpecificProperties": {
+      "post": {
+        "tags": [
+          "ApiClient"
+        ],
+        "summary": "Update the Data.Models.ExternalAPI.ExternalAPIClientEntity.ClientSpecificProperties associated with the API client.",
+        "requestBody": {
+          "description": "The new value to store as the Data.Models.ExternalAPI.ExternalAPIClientEntity.ClientSpecificProperties",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiClient"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiClient"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiClient"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Health/settings": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "summary": "Basic API health and settings",
+        "responses": {
+          "401": {
+            "description": "Not logged in"
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppSettings"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppSettings"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppSettings"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/PreferenceProfiles": {
+      "get": {
+        "tags": [
+          "PreferenceProfiles"
+        ],
+        "summary": "Gets the preference profiles for the authenticated client's organization.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PreferenceProfile"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PreferenceProfile"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PreferenceProfile"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/Subjects": {
+      "get": {
+        "tags": [
+          "Subjects"
+        ],
+        "summary": "Get a list of all of the subscriber's subjects",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Subject"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Subject"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Subject"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Subjects"
+        ],
+        "summary": "Create a new subject",
+        "requestBody": {
+          "description": "The new subject",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewSubject"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewSubject"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewSubject"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewSubject"
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Requested Analyst Support but organization does not have Analyst Support"
+          },
+          "200": {
+            "description": "Created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subject"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subject"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Subjects/{subjectId}": {
+      "get": {
+        "tags": [
+          "Subjects"
+        ],
+        "summary": "Get a particular subject",
+        "parameters": [
+          {
+            "name": "subjectId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subject"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subject"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subject"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Subject was not found"
+          }
+        }
+      }
+    },
+    "/api/Subjects/getByExternalId/{externalId}": {
+      "get": {
+        "tags": [
+          "Subjects"
+        ],
+        "summary": "Get a particular subject by external id value",
+        "description": "If there are multiple subjects having the specified externalId value, the \"first\" will be returned",
+        "parameters": [
+          {
+            "name": "externalId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subject"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subject"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subject"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Subject was not found"
+          }
+        }
+      }
+    },
+    "/api/Subjects/{subjectId}/screeningstatus": {
+      "get": {
+        "tags": [
+          "Subjects"
+        ],
+        "summary": "Get status of background screen for the requested subject",
+        "parameters": [
+          {
+            "name": "subjectId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BackgroundCheckStatus"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BackgroundCheckStatus"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BackgroundCheckStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Subjects/{externalId}/screeningStatusByExternalId": {
+      "get": {
+        "tags": [
+          "Subjects"
+        ],
+        "summary": "Get status of background screen for the requested subject",
+        "parameters": [
+          {
+            "name": "externalId",
+            "in": "path",
+            "description": "The \"external\" id value for the subject. This value is specified by the API client when the subject is created.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BackgroundCheckStatus"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BackgroundCheckStatus"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BackgroundCheckStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Subjects/{subjectId}/backgroundCheckResults": {
+      "get": {
+        "tags": [
+          "Subjects"
+        ],
+        "summary": "Get results from most recently-completed background screen for the requested subject",
+        "parameters": [
+          {
+            "name": "subjectId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BackgroundCheckResults"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BackgroundCheckResults"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BackgroundCheckResults"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Subjects/getByExternalId/{externalId}/backgroundCheckResults": {
+      "get": {
+        "tags": [
+          "Subjects"
+        ],
+        "summary": "Get results from most recently-completed background screen for the requested subject",
+        "parameters": [
+          {
+            "name": "externalId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BackgroundCheckResults"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BackgroundCheckResults"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BackgroundCheckResults"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Something was invalid about the request: subject does not have a completed background check; subject currently has background check in-progress",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Subject was not found"
+          }
+        }
+      }
+    },
+    "/api/Subjects/{subjectId}/initiateBackgroundCheck": {
+      "get": {
+        "tags": [
+          "Subjects"
+        ],
+        "summary": "Initiate the social media screening portion of a background check for the specified subject. If your organization has Analyst Assistance, it's likely that you should not be using this endpoint. :)",
+        "parameters": [
+          {
+            "name": "subjectId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Subject does not exist or has no social media accounts associated with it, is not valid for the API client, already has a background check in progress, or organization does not have enough credits."
+          },
+          "200": {
+            "description": "Successfully attempted to start background check",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BackgroundCheckStatus"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BackgroundCheckStatus"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BackgroundCheckStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Subjects/{subjectId}/filteredPosts": {
+      "get": {
+        "tags": [
+          "Subjects"
+        ],
+        "summary": "Get filtered list of posts for the specified subject",
+        "parameters": [
+          {
+            "name": "subjectId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "typeFilter",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "$ref": "#/components/schemas/PostTypeFilter"
+            }
+          },
+          {
+            "name": "dateFilter",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "$ref": "#/components/schemas/PostDateFilter"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Subject does not exist, is not valid for the API client."
+          },
+          "200": {
+            "description": "List of posts",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Post"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Post"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Post"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Subjects/{externalId}/filteredPostsByExternalId": {
+      "get": {
+        "tags": [
+          "Subjects"
+        ],
+        "summary": "Get filtered list of posts for the specified subject",
+        "parameters": [
+          {
+            "name": "externalId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "typeFilter",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "$ref": "#/components/schemas/PostTypeFilter"
+            }
+          },
+          {
+            "name": "dateFilter",
+            "in": "query",
+            "description": "",
+            "schema": {
+              "$ref": "#/components/schemas/PostDateFilter"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Subject does not exist, is not valid for the API client."
+          },
+          "200": {
+            "description": "List of posts",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Post"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Post"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Post"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Subjects/{subjectId}/downloadBackgroundReport": {
+      "get": {
+        "tags": [
+          "Subjects"
+        ],
+        "summary": "Download the latest background report for the requested subject",
+        "parameters": [
+          {
+            "name": "subjectId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The subject does not have a current background report"
+          },
+          "404": {
+            "description": "The subject has a current background report, but it could not be located in Blob Storage"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AffiliateInfo": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "_owner": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "_createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "_updatedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "companyName": {
+            "type": "string",
+            "nullable": true
+          },
+          "websiteAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "whitelabel": {
+            "type": "boolean"
+          },
+          "logo": {
+            "type": "string",
+            "nullable": true
+          },
+          "companyAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "companyAddress2": {
+            "type": "string",
+            "nullable": true
+          },
+          "companyCity": {
+            "type": "string",
+            "nullable": true
+          },
+          "companyPostalCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "companyState": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiClient": {
+        "type": "object",
+        "properties": {
+          "subscriberId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "organizationId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "owner": {
+            "type": "string",
+            "nullable": true
+          },
+          "permissions": {
+            "type": "string",
+            "nullable": true
+          },
+          "statusUpdateCallbackUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientSpecificProperties": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiClientWithApiKey": {
+        "type": "object",
+        "properties": {
+          "apiClient": {
+            "$ref": "#/components/schemas/ApiClient"
+          },
+          "apiKey": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApiSubjectHandle": {
+        "type": "object",
+        "properties": {
+          "profilePicUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "location": {
+            "type": "string",
+            "nullable": true
+          },
+          "workplace": {
+            "type": "string",
+            "nullable": true
+          },
+          "school": {
+            "type": "string",
+            "nullable": true
+          },
+          "livesIn": {
+            "type": "string",
+            "nullable": true
+          },
+          "from": {
+            "type": "string",
+            "nullable": true
+          },
+          "facebookStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "socialMediaLinkedAccount": {
+            "type": "string",
+            "nullable": true
+          },
+          "joined": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "postCount": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "followers": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "following": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "bio": {
+            "type": "string",
+            "nullable": true
+          },
+          "platform": {
+            "type": "string",
+            "nullable": true
+          },
+          "handle": {
+            "type": "string",
+            "nullable": true
+          },
+          "profileUrl": {
+            "type": "string",
+            "description": "The direct URL to the profile on the social media platform.",
+            "nullable": true,
+            "example": "https://www.linkedin.com/in/johndoe"
+          },
+          "isPersonalProfile": {
+            "type": "boolean",
+            "description": "Indicates whether this handle represents a personal profile, as opposed to a business or organization page.",
+            "example": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AppSettings": {
+        "type": "object",
+        "properties": {
+          "storageAccount": {
+            "type": "string",
+            "nullable": true
+          },
+          "storageKey": {
+            "type": "string",
+            "nullable": true
+          },
+          "ferretlyAnalystEmailAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "subjectAssignedToYouTemplateId": {
+            "type": "string",
+            "nullable": true
+          },
+          "emptyProfileImageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "sendGridApiKey": {
+            "type": "string",
+            "nullable": true
+          },
+          "applicationUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "platform": {
+            "$ref": "#/components/schemas/Platform"
+          },
+          "isDevelopmentEnvironment": {
+            "type": "boolean"
+          },
+          "fetcherManagerUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "profilePicBaseUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "profilePicsContainer": {
+            "type": "string",
+            "nullable": true
+          },
+          "elasticSearchSettings": {
+            "$ref": "#/components/schemas/IElasticSearchSettings"
+          },
+          "elasticSearchPostSettings": {
+            "$ref": "#/components/schemas/IElasticSearchSettings"
+          },
+          "workerQueueTable": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizationPreferencesIndexName": {
+            "type": "string",
+            "nullable": true
+          },
+          "tableNames": {
+            "$ref": "#/components/schemas/ITableNames"
+          },
+          "reportsBlobStorageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "backgroundReportBlobContainer": {
+            "type": "string",
+            "nullable": true
+          },
+          "supplementaryDocumentBlobStorageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "externalApiBaseUrl": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuditInfo": {
+        "type": "object",
+        "properties": {
+          "occurredOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "subscriberName": {
+            "type": "string",
+            "nullable": true
+          },
+          "subscriberEmail": {
+            "type": "string",
+            "nullable": true
+          },
+          "subscriberId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "BackgroundCheckResults": {
+        "type": "object",
+        "properties": {
+          "initiated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "subjectId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "subjectExternalSystemId": {
+            "type": "string",
+            "nullable": true
+          },
+          "riskMakeups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RiskMakeup"
+            },
+            "description": "Risk makeups: count of posts flagged for each risk",
+            "nullable": true,
+            "readOnly": true
+          },
+          "channelVolumes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChannelVolume"
+            },
+            "nullable": true
+          },
+          "flaggedPosts": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "flagCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPosts": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "webSearchPosts": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "score": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalSentiment": {
+            "type": "number",
+            "format": "double"
+          },
+          "finishedScraping": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "runStatus": {
+            "$ref": "#/components/schemas/RunStatusEnum"
+          },
+          "isRedressed": {
+            "type": "boolean"
+          },
+          "lastMarkAsRedressedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "postSummaryText": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "BackgroundCheckStatus": {
+        "enum": [
+          "None",
+          "InQueue",
+          "InProgress",
+          "Redressing",
+          "Complete",
+          "Error",
+          "Redressed"
+        ],
+        "type": "string"
+      },
+      "BehaviorSource": {
+        "enum": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "CandidateProfileModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "subjectId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "platform": {
+            "$ref": "#/components/schemas/SocialMediaPlatform"
+          },
+          "source": {
+            "$ref": "#/components/schemas/CandidateProfileSource"
+          },
+          "handle": {
+            "type": "string",
+            "nullable": true
+          },
+          "cityStateCountry": {
+            "type": "string",
+            "nullable": true
+          },
+          "ageDOB": {
+            "type": "string",
+            "nullable": true
+          },
+          "bio": {
+            "type": "string",
+            "nullable": true
+          },
+          "profilePhotoUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "profileUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "validationSuccessful": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "isUsedInSubject": {
+            "type": "boolean"
+          },
+          "isValidated": {
+            "type": "boolean"
+          },
+          "isPersonalProfile": {
+            "type": "boolean"
+          },
+          "profileImageSimilarity": {
+            "type": "number",
+            "format": "float"
+          },
+          "profileImageMatchType": {
+            "$ref": "#/components/schemas/ImageMatchType"
+          },
+          "confidence": {
+            "type": "number",
+            "format": "float"
+          },
+          "fullNames": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "addresses": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "emails": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "companies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "colleges": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "highSchools": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "phones": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "otherNames": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "identifiers": {
+            "$ref": "#/components/schemas/ProfileIdentifiers"
+          },
+          "location": {
+            "$ref": "#/components/schemas/Coordinates"
+          },
+          "searchIteration": {
+            "type": "string",
+            "description": "Represents a search iteration step where this candidate came from. Null for non-search (validation) candidates",
+            "nullable": true
+          },
+          "socialMediaProfileId": {
+            "type": "string",
+            "description": "Represents a unique candidate id provided by platform",
+            "nullable": true
+          },
+          "isNotAvailableForHandle": {
+            "type": "boolean",
+            "description": "A Boolean indicating whether this profile is not available for use as\r\na subject handle. This is typically used for profiles that are\r\nfound to be duplicates or otherwise unsuitable for handles."
+          },
+          "reasoning": {
+            "type": "string",
+            "description": "LLM reasoning",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CandidateProfileSource": {
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "ChannelVolume": {
+        "type": "object",
+        "properties": {
+          "channelName": {
+            "type": "string",
+            "nullable": true
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "flaggedPosts": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ContinuousScreeningInterval": {
+        "enum": [
+          "None",
+          "Monthly",
+          "SemiAnnual",
+          "Annual",
+          "Quarterly"
+        ],
+        "type": "string"
+      },
+      "Coordinates": {
+        "type": "object",
+        "properties": {
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DataRetentionPeriod": {
+        "enum": [
+          0,
+          1
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "EditSubject": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "nickname": {
+            "type": "string",
+            "nullable": true
+          },
+          "profilePicUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "nullable": true
+          },
+          "country": {
+            "type": "string",
+            "nullable": true
+          },
+          "ageOrDateOfBirth": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "highSchool": {
+            "type": "string",
+            "nullable": true
+          },
+          "college": {
+            "type": "string",
+            "nullable": true
+          },
+          "company": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "twitterUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "facebookUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "instagramUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "linkedInUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "tiktokUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "redditUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "pinterestUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ETag": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "FlagInfo": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "labelName": {
+            "type": "string",
+            "nullable": true
+          },
+          "flagLevel": {
+            "type": "number",
+            "format": "double"
+          },
+          "keywordFlagLabel": {
+            "type": "string",
+            "nullable": true
+          },
+          "keywordFlagType": {
+            "$ref": "#/components/schemas/KeywordType"
+          },
+          "behaviorSource": {
+            "$ref": "#/components/schemas/BehaviorSource"
+          },
+          "riskType": {
+            "$ref": "#/components/schemas/RiskType"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GeneralSettings": {
+        "type": "object",
+        "properties": {
+          "email_me": {
+            "type": "boolean"
+          },
+          "notificationEmailAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "email_subject_owner_on_completion": {
+            "type": "boolean"
+          },
+          "is_flagged": {
+            "type": "boolean"
+          },
+          "is_negative": {
+            "type": "boolean"
+          },
+          "is_positive": {
+            "type": "boolean"
+          },
+          "hide_logos": {
+            "type": "boolean"
+          },
+          "includeHelpPagesOnBackgroundReport": {
+            "type": "boolean"
+          },
+          "includeHyperlinksInReports": {
+            "type": "boolean"
+          },
+          "include_web_news_posts": {
+            "type": "boolean"
+          },
+          "minimum_web_post_confidence_level": {
+            "type": "string",
+            "nullable": true
+          },
+          "include_fcra": {
+            "type": "boolean"
+          },
+          "isFCRAYearsOverriden": {
+            "type": "boolean"
+          },
+          "alternativeNumberOfYearsForPosts": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "anonymizeProfilePictureInReports": {
+            "type": "boolean"
+          },
+          "includePostInsightsInReports": {
+            "type": "boolean"
+          },
+          "basicInsightsIsOnePage": {
+            "type": "boolean"
+          },
+          "report_background_color": {
+            "type": "string",
+            "nullable": true
+          },
+          "hideSentimentOnReports": {
+            "type": "boolean"
+          },
+          "useAlternateDisclaimerText": {
+            "type": "boolean"
+          },
+          "showZeroScoreWhenNoHandles": {
+            "type": "boolean"
+          },
+          "excludeHandleBiosOnCoverPage": {
+            "type": "boolean"
+          },
+          "excludeScoreOnPostsInsights": {
+            "type": "boolean"
+          },
+          "isPrinterFriendlyReport": {
+            "type": "boolean"
+          },
+          "reportAnalyticsSections": {
+            "$ref": "#/components/schemas/ReportAnalyticsSections"
+          },
+          "includeAbstract": {
+            "type": "boolean"
+          },
+          "postTypesToAnalyze": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PostType"
+            },
+            "nullable": true
+          },
+          "showBehaviorIconsInReports": {
+            "type": "boolean"
+          },
+          "redactNudeImagesInReports": {
+            "type": "boolean"
+          },
+          "group_posts_by": {
+            "type": "string",
+            "nullable": true
+          },
+          "report_language_iso_code": {
+            "type": "string",
+            "nullable": true
+          },
+          "includePostTagsInReports": {
+            "type": "boolean"
+          },
+          "hideSubjectProvidedPropertiesInReports": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "HandleSource": {
+        "enum": [
+          "Unknown",
+          "ManuallyAdded",
+          "ExternalApi",
+          "SubjectImport",
+          "DatabaseSearchResult",
+          "CandidateProfileResult",
+          "RelatedProfile",
+          "DocumentImport"
+        ],
+        "type": "string"
+      },
+      "HandleStatus": {
+        "enum": [
+          "Valid",
+          "PrivateAccount",
+          "NoPublicPosts",
+          "Unverified"
+        ],
+        "type": "string"
+      },
+      "IElasticSearchSettings": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "nullable": true
+          },
+          "indexName": {
+            "type": "string",
+            "nullable": true
+          },
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "maxSearchResultChunkSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "requestTimeoutInSeconds": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "certificateFingerprint": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ImageMatchType": {
+        "enum": [
+          0,
+          1
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "ITableNames": {
+        "type": "object",
+        "properties": {
+          "subjects": {
+            "type": "string",
+            "nullable": true
+          },
+          "subjectSupplementaryDocumentsContainer": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Keyword": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "include_in_search": {
+            "type": "boolean"
+          },
+          "keyword_type": {
+            "$ref": "#/components/schemas/KeywordType"
+          }
+        },
+        "additionalProperties": false
+      },
+      "KeyWords": {
+        "type": "object",
+        "properties": {
+          "is_active": {
+            "type": "boolean"
+          },
+          "key_words": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Keyword"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "KeywordType": {
+        "enum": [
+          "Neutral",
+          "Positive",
+          "Negative",
+          "NotFlagged"
+        ],
+        "type": "string"
+      },
+      "MediaItem": {
+        "type": "object",
+        "properties": {
+          "mediaHeight": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "mediaWidth": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "media": {
+            "type": "string",
+            "nullable": true
+          },
+          "isVideo": {
+            "type": "boolean"
+          },
+          "videoLink": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "NewSubject": {
+        "required": [
+          "subjectData"
+        ],
+        "type": "object",
+        "properties": {
+          "subjectData": {
+            "$ref": "#/components/schemas/EditSubject"
+          },
+          "handles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApiSubjectHandle"
+            },
+            "nullable": true
+          },
+          "assignToFerretlyAnalyst": {
+            "type": "boolean"
+          },
+          "externalSystemId": {
+            "type": "string",
+            "nullable": true
+          },
+          "ownerEmail": {
+            "type": "string",
+            "nullable": true
+          },
+          "document": {
+            "$ref": "#/components/schemas/UploadSubjectDocument"
+          },
+          "isDebug": {
+            "type": "boolean"
+          },
+          "organizationId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "preferencesProfile": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OceanPersonalityTraits": {
+        "type": "object",
+        "properties": {
+          "openness": {
+            "type": "number",
+            "format": "double"
+          },
+          "conscientiousness": {
+            "type": "number",
+            "format": "double"
+          },
+          "extraversion": {
+            "type": "number",
+            "format": "double"
+          },
+          "agreeableness": {
+            "type": "number",
+            "format": "double"
+          },
+          "neuroticism": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Organization": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "purchasedAnalystSupport": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "affiliate_guid": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "affiliate": {
+            "$ref": "#/components/schemas/AffiliateInfo"
+          },
+          "credits_available": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "credits_used": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "stripe_customerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "socialMediaScraperYears": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "planType": {
+            "$ref": "#/components/schemas/PlanType"
+          },
+          "paymentMethod": {
+            "$ref": "#/components/schemas/PaymentMethod"
+          },
+          "isSubscriptionActive": {
+            "type": "boolean"
+          },
+          "stripeSubscriptionId": {
+            "type": "string",
+            "nullable": true,
+            "deprecated": true
+          },
+          "stripePlanId": {
+            "type": "string",
+            "nullable": true,
+            "deprecated": true
+          },
+          "stripePricingId": {
+            "type": "string",
+            "nullable": true,
+            "deprecated": true
+          },
+          "numberOfContinuousScreeningSubjectsEnabled": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "piplCreditsAvailable": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "piplCreditsUsed": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "alternateDisclaimerText": {
+            "type": "string",
+            "nullable": true
+          },
+          "data_retention_years": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "data_retention_period": {
+            "$ref": "#/components/schemas/DataRetentionPeriod"
+          },
+          "instructions": {
+            "type": "string",
+            "nullable": true
+          },
+          "pricingModel": {
+            "$ref": "#/components/schemas/PricingModel"
+          },
+          "isReseller": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganizationPreferencesProfile": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "profile_name": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizationId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "organizationName": {
+            "type": "string",
+            "nullable": true
+          },
+          "isOrganizationDefaultProfile": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "subscriberId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "isPrivateProfile": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "risk_categories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrganizationRiskCategory"
+            },
+            "nullable": true
+          },
+          "key_words": {
+            "$ref": "#/components/schemas/KeyWords"
+          },
+          "general_settings": {
+            "$ref": "#/components/schemas/GeneralSettings"
+          },
+          "lastEdited": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastEditedBy": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrganizationRiskCategory": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "sort_order": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "risk_type": {
+            "$ref": "#/components/schemas/RiskType"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaymentMethod": {
+        "enum": [
+          "InApp",
+          "Manual"
+        ],
+        "type": "string"
+      },
+      "PlanType": {
+        "enum": [
+          "Free",
+          "Basic",
+          "Professional",
+          "Enterprise",
+          "SocialProfileSearch"
+        ],
+        "type": "string",
+        "description": "Specifies the !:Organization.PlanType"
+      },
+      "Platform": {
+        "enum": [
+          "Development",
+          "Production",
+          "Staging"
+        ],
+        "type": "string"
+      },
+      "PlatformSearchStatus": {
+        "type": "object",
+        "properties": {
+          "platform": {
+            "$ref": "#/components/schemas/SearchPlatform"
+          },
+          "status": {
+            "$ref": "#/components/schemas/SearchStatusEnum"
+          },
+          "startedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "completedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "statusMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Post": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "backgroundCheckId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "platform": {
+            "type": "string",
+            "nullable": true
+          },
+          "postType": {
+            "$ref": "#/components/schemas/PostType"
+          },
+          "isRetweet": {
+            "type": "boolean"
+          },
+          "handle": {
+            "type": "string",
+            "nullable": true
+          },
+          "nameOfPoster": {
+            "type": "string",
+            "nullable": true
+          },
+          "profileImageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "postLink": {
+            "type": "string",
+            "nullable": true
+          },
+          "content": {
+            "type": "string",
+            "nullable": true
+          },
+          "postDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "sentiment": {
+            "type": "number",
+            "format": "double"
+          },
+          "sentimentFlag": {
+            "$ref": "#/components/schemas/SentimentFlag"
+          },
+          "flagList": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "allFlags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FlagInfo"
+            },
+            "nullable": true
+          },
+          "friendlyFlagText": {
+            "type": "string",
+            "nullable": true
+          },
+          "mediaUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "mediaHeight": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "mediaWidth": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "isVideo": {
+            "type": "boolean"
+          },
+          "videoLink": {
+            "type": "string",
+            "nullable": true
+          },
+          "mediaItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MediaItem"
+            },
+            "nullable": true
+          },
+          "keywordFlagType": {
+            "$ref": "#/components/schemas/KeywordType"
+          },
+          "imageKeywordFlagType": {
+            "$ref": "#/components/schemas/KeywordType"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PostDateFilter": {
+        "enum": [
+          "None",
+          "ThirtyDays",
+          "SincePrevious",
+          "Custom"
+        ],
+        "type": "string"
+      },
+      "PostType": {
+        "enum": [
+          "Post",
+          "Reply",
+          "Like",
+          "Repost",
+          "MediaItemContent",
+          "WebSearch",
+          "CustomUrl"
+        ],
+        "type": "string"
+      },
+      "PostTypeFilter": {
+        "enum": [
+          "All",
+          "NegativeSentiment",
+          "PositiveSentiment",
+          "Flagged",
+          "WebNews",
+          "Tagged",
+          "SavedSearch",
+          "SanctionsSearch"
+        ],
+        "type": "string"
+      },
+      "PreferenceProfile": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "profileName": {
+            "type": "string",
+            "nullable": true
+          },
+          "isOrganizationDefaultProfile": {
+            "type": "boolean"
+          },
+          "subscriberId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "isPrivateProfile": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PricingModel": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "description": "Represents the pricing model for a product",
+        "format": "int32"
+      },
+      "ProfileIdentifiers": {
+        "type": "object",
+        "properties": {
+          "isProvidedBySubject": {
+            "type": "boolean"
+          },
+          "isUniqueNameProvided": {
+            "type": "boolean"
+          },
+          "isNonUniqueNameProvided": {
+            "type": "boolean"
+          },
+          "isLocationProvided": {
+            "type": "boolean"
+          },
+          "isCompanyProvided": {
+            "type": "boolean"
+          },
+          "isCollegeProvided": {
+            "type": "boolean"
+          },
+          "isHighSchoolProvided": {
+            "type": "boolean"
+          },
+          "isThirdPartyDatabaseProvided": {
+            "type": "boolean"
+          },
+          "isUsernameProvided": {
+            "type": "boolean"
+          },
+          "isPhoneNumberProvided": {
+            "type": "boolean"
+          },
+          "isEmailProvided": {
+            "type": "boolean"
+          },
+          "isFaceMatchProvided": {
+            "type": "boolean"
+          },
+          "isAgeMatchProvided": {
+            "type": "boolean"
+          },
+          "otherNote": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A ProfileIdentifier represents the data that was provided in the profile"
+      },
+      "ReportAnalyticsSections": {
+        "type": "object",
+        "properties": {
+          "socialMediaScore": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "riskMakeup": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "socialProfileCounts": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "wordCloud": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sentiment": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "channelVolumes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "oceanPersonality": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RiskMakeup": {
+        "type": "object",
+        "properties": {
+          "riskName": {
+            "type": "string",
+            "nullable": true
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RiskType": {
+        "enum": [
+          "Post",
+          "Image",
+          "Keywords"
+        ],
+        "type": "string"
+      },
+      "RunStatusEnum": {
+        "enum": [
+          "None",
+          "Started",
+          "Queued",
+          "ScrapingComplete",
+          "PostClassificationComplete",
+          "ImageClassificationComplete",
+          "ImageClassificationContinues",
+          "WebSearchComplete",
+          "RunCompleted",
+          "Error",
+          "ScraperFinished",
+          "SubjectHasNoPosts",
+          "BackgroundCheckTimedOut",
+          "ScreeningInProgress",
+          "PostsFetched",
+          "PostTranslationCheckStarted",
+          "PostTranslationCheckCompleted",
+          "PostTranslationStarted",
+          "PostTranslationComplete",
+          "ImageClassificationStarted",
+          "PostClassificationStarted",
+          "WebSearchStarted",
+          "ScoringPostsStarted",
+          "WebSearchIterationStarted",
+          "VideoProcessingStarted",
+          "VideoProcessingCompleted",
+          "VideoFramesExtractionPreparationStarted",
+          "VideoFramesExtractionPreparationCompleted",
+          "VideoFramesExtractionStarted",
+          "VideoFramesExtractionCompleted",
+          "FlaggedVideoFramesSavingStarted",
+          "FlaggedVideoFramesSavingCompleted"
+        ],
+        "type": "string"
+      },
+      "SearchPlatform": {
+        "enum": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "type": "integer",
+        "description": "Enumeration of the various searchable platforms",
+        "format": "int32"
+      },
+      "SearchStatusEnum": {
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "SentimentFlag": {
+        "enum": [
+          "Neutral",
+          "Positive",
+          "Negative"
+        ],
+        "type": "string"
+      },
+      "SocialMediaPlatform": {
+        "enum": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "Subject": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "subscriberId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "ownerFirstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "ownerLastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "ownerEmail": {
+            "type": "string",
+            "nullable": true
+          },
+          "ownerProfilePhotoUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "organizationId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "nickname": {
+            "type": "string",
+            "nullable": true
+          },
+          "handles": {
+            "type": "string",
+            "nullable": true
+          },
+          "handleList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SubjectHandle"
+            },
+            "nullable": true
+          },
+          "mostRecentRunId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "dateAdded": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "subjectAddedAuditInfo": {
+            "$ref": "#/components/schemas/AuditInfo"
+          },
+          "profilePicUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastRunDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "score": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/SubjectStatus"
+          },
+          "lastRunStatus": {
+            "$ref": "#/components/schemas/RunStatusEnum"
+          },
+          "lastRunStatusMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastRunFinishedScraping": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "currentRunStarted": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "currentBackgroundCheckStartedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "currentRunStatus": {
+            "$ref": "#/components/schemas/RunStatusEnum"
+          },
+          "currentRunId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "backgroundReportFileName": {
+            "type": "string",
+            "nullable": true
+          },
+          "isBackgroundReportStale": {
+            "type": "boolean"
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "nullable": true
+          },
+          "country": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "highSchool": {
+            "type": "string",
+            "nullable": true
+          },
+          "college": {
+            "type": "string",
+            "nullable": true
+          },
+          "company": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "twitterUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "facebookUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "instagramUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "linkedInUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "tiktokUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "redditUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "pinterestUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "riskMakeups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RiskMakeup"
+            },
+            "nullable": true
+          },
+          "channelVolumes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChannelVolume"
+            },
+            "nullable": true
+          },
+          "isRedressed": {
+            "type": "boolean"
+          },
+          "lastMarkAsRedressedOn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "lastMarkedAsRedressedBy": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "lastMarkedAsRedressedEmail": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastMarkedAsRedressedName": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastMarkedAsRedressedAuditInfo": {
+            "$ref": "#/components/schemas/AuditInfo"
+          },
+          "totalPosts": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "flaggedPosts": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalSentiment": {
+            "type": "number",
+            "format": "double"
+          },
+          "webSearchPosts": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sanctionsSearchPosts": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "hasAvailablePosts": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "isBackgroundCheckInProgress": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "preferencesProfileID": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "isEnabledForContinuousScreening": {
+            "type": "boolean"
+          },
+          "subscriberEnablingContinuousScreening": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "continuousScreeningPreferences": {
+            "$ref": "#/components/schemas/OrganizationPreferencesProfile"
+          },
+          "continuousScreeningInterval": {
+            "$ref": "#/components/schemas/ContinuousScreeningInterval"
+          },
+          "continuousScreeningNotificationEmail": {
+            "type": "string",
+            "nullable": true
+          },
+          "continuousScreeningLastCreditChargedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "supplementaryDocumentBlobName": {
+            "type": "string",
+            "nullable": true
+          },
+          "supplementaryDocumentFilename": {
+            "type": "string",
+            "nullable": true
+          },
+          "supplementaryDocumentContentType": {
+            "type": "string",
+            "nullable": true
+          },
+          "previousRunDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "nextScreeningDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "originalScreeningDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "isAssignedToFerretlyAnalyst": {
+            "type": "boolean"
+          },
+          "dateAssignedToAnalyst": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "assignedToAnalystAuditInfo": {
+            "$ref": "#/components/schemas/AuditInfo"
+          },
+          "assignedAnalystId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "slaTimeInHours": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "slaExpirationTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "turnAroundTimeInHours": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "ageOrDateOfBirth": {
+            "type": "string",
+            "nullable": true
+          },
+          "isExternalApiSubject": {
+            "type": "boolean"
+          },
+          "externalSystemId": {
+            "type": "string",
+            "nullable": true
+          },
+          "isPostMigrationScheduled": {
+            "type": "boolean"
+          },
+          "areSubjectProfilesReviewed": {
+            "type": "boolean"
+          },
+          "runBGCheckAfterSearchIsFinished": {
+            "type": "boolean"
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "lastUpdated": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "readOnly": true
+          },
+          "lastUpdatedBy": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "lastUpdatedByEmail": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "lastUpdatedBySubscriberId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true,
+            "readOnly": true
+          },
+          "lastUpdatedAuditInfo": {
+            "$ref": "#/components/schemas/AuditInfo"
+          },
+          "platformSearchStatuses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PlatformSearchStatus"
+            },
+            "nullable": true
+          },
+          "hasAgenticProfileSearch": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "postSummaryText": {
+            "type": "string",
+            "nullable": true
+          },
+          "oceanPersonalityTraits": {
+            "$ref": "#/components/schemas/OceanPersonalityTraits"
+          },
+          "partitionKey": {
+            "type": "string",
+            "nullable": true
+          },
+          "rowKey": {
+            "type": "string",
+            "nullable": true
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "eTag": {
+            "$ref": "#/components/schemas/ETag"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SubjectHandle": {
+        "type": "object",
+        "properties": {
+          "platform": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "isSubjectProvided": {
+            "type": "boolean"
+          },
+          "verified": {
+            "type": "boolean"
+          },
+          "profileUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "profilePicUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "location": {
+            "type": "string",
+            "nullable": true
+          },
+          "workplace": {
+            "type": "string",
+            "nullable": true
+          },
+          "school": {
+            "type": "string",
+            "nullable": true
+          },
+          "livesIn": {
+            "type": "string",
+            "nullable": true
+          },
+          "from": {
+            "type": "string",
+            "nullable": true
+          },
+          "facebookStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "socialMediaLinkedAccount": {
+            "type": "string",
+            "nullable": true
+          },
+          "joined": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "postCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "followers": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "following": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "bio": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/HandleStatus"
+          },
+          "socialMediaProfileId": {
+            "type": "string",
+            "nullable": true
+          },
+          "candidateProfileId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "handleCreated": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "validationStarted": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "validationCompleted": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "candidateProfile": {
+            "$ref": "#/components/schemas/CandidateProfileModel"
+          },
+          "handleSource": {
+            "$ref": "#/components/schemas/HandleSource"
+          },
+          "pronouns": {
+            "type": "string",
+            "nullable": true
+          },
+          "handle": {
+            "type": "string",
+            "nullable": true
+          },
+          "isPersonalProfile": {
+            "type": "boolean",
+            "description": "Indicates whether this handle represents a personal profile, as opposed to a business or organization page.",
+            "example": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SubjectStatus": {
+        "enum": [
+          "Demo",
+          "Active",
+          "Archived"
+        ],
+        "type": "string"
+      },
+      "UploadSubjectDocument": {
+        "type": "object",
+        "properties": {
+          "filename": {
+            "type": "string",
+            "nullable": true
+          },
+          "contentType": {
+            "type": "string",
+            "nullable": true
+          },
+          "imageData": {
+            "type": "string",
+            "format": "byte",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "ApiKey": {
+        "type": "apiKey",
+        "description": "API key authentication. Pass your API key in the X-Api-Key request header.",
+        "name": "X-Api-Key",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "ApiKey": [ ]
+    }
+  ],
+  "tags": [
+    {
+      "name": "ApiClient",
+      "description": "Endpoints for discovering information about and managing Data.Models.ExternalAPI.ApiClient instances."
+    },
+    {
+      "name": "PreferenceProfiles",
+      "description": "The PreferenceProfilesController provides endpoints to manage the preference profiles\r\nrelated to an authenticated client."
+    },
+    {
+      "name": "Subjects",
+      "description": "Endpoints for creating, discovering, and managing Ferretly subject records associated with an API client"
+    }
+  ]
+}
