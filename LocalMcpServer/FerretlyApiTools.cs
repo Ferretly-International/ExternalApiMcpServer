@@ -34,7 +34,7 @@ public class FerretlyApiTools
         using var client = CreateClient();
         var response = await client.GetAsync("api/Subjects");
         var body = await ReadResponseAsync(response);
-        if (body.StartsWith("Error "))
+        if (body.StartsWith("Error ") || string.IsNullOrWhiteSpace(body))
             return body;
         var subjects = JsonSerializer.Deserialize<List<SubjectSummary>>(body);
         return JsonSerializer.Serialize(subjects);

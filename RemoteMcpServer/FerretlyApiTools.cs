@@ -20,11 +20,14 @@ public class FerretlyApiTools
         _httpContextAccessor = httpContextAccessor;
     }
 
+    private string? GetApiKey() =>
+        _httpContextAccessor.HttpContext?.Request.Headers["X-Api-Key"].ToString();
+
     private async Task<string> GetAsync(string url)
     {
         using var client = _httpClientFactory.CreateClient(HttpClientName);
         using var request = new HttpRequestMessage(HttpMethod.Get, url);
-        var apiKey = _httpContextAccessor.HttpContext?.Request.Headers["X-Api-Key"].ToString();
+        var apiKey = GetApiKey();
         if (!string.IsNullOrEmpty(apiKey))
             request.Headers.Add("X-Api-Key", apiKey);
         var response = await client.SendAsync(request);
@@ -44,7 +47,7 @@ public class FerretlyApiTools
     public async Task<string> ListSubjectsAsync()
     {
         var body = await GetAsync("api/Subjects");
-        if (body.StartsWith("Error "))
+        if (body.StartsWith("Error ") || string.IsNullOrWhiteSpace(body))
             return body;
         var subjects = JsonSerializer.Deserialize<List<SubjectSummary>>(body);
         return JsonSerializer.Serialize(subjects);
@@ -106,7 +109,7 @@ public class FerretlyApiTools
         using var client = _httpClientFactory.CreateClient(HttpClientName);
         using var request = new HttpRequestMessage(HttpMethod.Get,
             $"api/Subjects/{Uri.EscapeDataString(subjectId)}/downloadBackgroundReport");
-        var apiKey = _httpContextAccessor.HttpContext?.Request.Headers["X-Api-Key"].ToString();
+        var apiKey = GetApiKey();
         if (!string.IsNullOrEmpty(apiKey))
             request.Headers.Add("X-Api-Key", apiKey);
         var response = await client.SendAsync(request);

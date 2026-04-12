@@ -29,7 +29,7 @@ public class SubjectSummary
     public int TotalPosts { get; init; }
 
     [JsonPropertyName("lastRunDate")]
-    public DateTime? LastRunDate { get; init; }
+    public DateTimeOffset? LastRunDate { get; init; }
 
     [JsonPropertyName("lastRunStatus")]
     public string? LastRunStatus { get; init; }
@@ -41,7 +41,7 @@ public class SubjectSummary
     public bool IsEnabledForContinuousScreening { get; init; }
 
     [JsonPropertyName("dateAdded")]
-    public DateTime? DateAdded { get; init; }
+    public DateTimeOffset? DateAdded { get; init; }
 
     [JsonPropertyName("tags")]
     public string[]? Tags { get; init; }
