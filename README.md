@@ -30,6 +30,17 @@ Both servers expose the same 13 read-only tools:
 | `get_organization` | Get organization details for the authenticated API client |
 | `get_health_settings` | Get API health status and settings |
 
+## Code structure
+
+`FerretlyApiTools.cs` exists in both server projects and looks like duplication, but the two copies differ in a load-bearing way:
+
+- **`LocalMcpServer`** configures its `HttpClient` with the API key at startup — the key is fixed for the lifetime of the process.
+- **`RemoteMcpServer`** has no key at startup. Its `GetAsync` helper reads `X-Api-Key` from the *incoming* HTTP request on every call (via `IHttpContextAccessor`) and forwards it to Ferretly — this is what makes per-customer isolation work.
+
+Consolidating into a shared base class would require adding the MCP framework as a dependency of the `Shared` library and abstracting the HTTP execution strategy — meaningful complexity for 13 one-liner methods. The duplication is intentional at this scale.
+
+`Shared/` holds models that genuinely have no framework dependency and are needed by both projects (`SubjectSummary`, `RiskMakeup`).
+
 ## Prerequisites
 
 - .NET 8 SDK
