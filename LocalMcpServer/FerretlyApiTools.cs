@@ -1,6 +1,7 @@
 using System.ComponentModel;
+using System.Text.Json;
 using ModelContextProtocol.Server;
-using Newtonsoft.Json;
+using Shared.Models;
 
 namespace LocalMcpServer;
 
@@ -32,7 +33,11 @@ public class FerretlyApiTools
     {
         using var client = CreateClient();
         var response = await client.GetAsync("api/Subjects");
-        return await ReadResponseAsync(response);
+        var body = await ReadResponseAsync(response);
+        if (body.StartsWith("Error "))
+            return body;
+        var subjects = JsonSerializer.Deserialize<List<SubjectSummary>>(body);
+        return JsonSerializer.Serialize(subjects);
     }
 
     [McpServerTool(Name = "get_subject")]
@@ -129,7 +134,7 @@ public class FerretlyApiTools
         }
         var contentType = response.Content.Headers.ContentType?.MediaType ?? "unknown";
         var bytes = await response.Content.ReadAsByteArrayAsync();
-        return JsonConvert.SerializeObject(new
+        return JsonSerializer.Serialize(new
         {
             contentType,
             sizeBytes = bytes.Length,

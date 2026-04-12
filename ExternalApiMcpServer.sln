@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalMcpServer", "LocalMcpS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteMcpServer", "RemoteMcpServer\RemoteMcpServer.csproj", "{72E3B577-13D0-4CCA-BB3B-948E423853E2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{8F594CE5-5351-42A3-A547-B3C75E41B4A7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{72E3B577-13D0-4CCA-BB3B-948E423853E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72E3B577-13D0-4CCA-BB3B-948E423853E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72E3B577-13D0-4CCA-BB3B-948E423853E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F594CE5-5351-42A3-A547-B3C75E41B4A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F594CE5-5351-42A3-A547-B3C75E41B4A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F594CE5-5351-42A3-A547-B3C75E41B4A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F594CE5-5351-42A3-A547-B3C75E41B4A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -4,12 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This repo contains two .NET 8 projects that expose the **Ferretly External API** as MCP tools — one for local (stdio) use and one for remote (HTTP) hosting. Both expose the same 13 read-only GET tools.
+This repo contains three .NET 8 projects.
 
 | Project | Transport | API key source |
 |---------|-----------|----------------|
 | `LocalMcpServer/` | stdio — runs as a local process | `appsettings.json` / user secrets |
 | `RemoteMcpServer/` | HTTP — hosted as a web service | `X-Api-Key` request header from each customer |
+| `Shared/` | Class library — shared models | n/a |
 
 ## Commands
 
@@ -48,6 +49,14 @@ There are no test or lint commands — the projects use standard .NET CLI only.
 
 **`FerretlyApiTools.cs`** — Same 13 tools. `IHttpContextAccessor` is injected alongside `IHttpClientFactory`. The private `GetAsync` helper reads `X-Api-Key` from the **incoming** HTTP request headers and adds it to each outgoing Ferretly request — this is how each customer's key is forwarded without server-side storage.
 
+### Shared
+
+**`Models/SubjectSummary.cs`** — Slimmed projection of the Ferretly Subject, containing the ~15 fields relevant for AI consumption (id, name, email, status, score, post counts, run dates, tags, risk breakdown). `[JsonPropertyName]` attributes map camelCase API fields; `System.Text.Json` ignores unknown fields by default so no full Subject model is needed.
+
+**`Models/RiskMakeup.cs`** — Nested model for `{ riskName, count }` pairs within `SubjectSummary.RiskMakeups`.
+
+Both MCP projects reference `Shared` via `<ProjectReference>`. The library has no MCP or HTTP dependencies.
+
 ### Key design note
 
 The `X-Api-Key` header flows through: **MCP client → RemoteMcpServer → Ferretly API**. The server never stores or logs it. Customers must pass the header when connecting; if it is missing, Ferretly will return a 401 and the tool will surface that error.
@@ -72,3 +81,9 @@ User secrets ID: `a3f7c2e1-5b84-4d69-9e23-8f1a0c6b7d45`
 ## Adding New Tools
 
 Add a method to `FerretlyApiTools.cs` in either project (or both), decorated with `[McpServerTool]` and `[Description]`. In `LocalMcpServer`, call `CreateClient()` directly. In `RemoteMcpServer`, use the `GetAsync(url)` helper — it handles the per-request key forwarding automatically. No registration is needed; tools are auto-discovered.
+
+If a tool returns a list where the raw API response is too noisy, add a summary model to `Shared/Models/` with `[JsonPropertyName]` attributes and deserialize with `JsonSerializer.Deserialize<List<YourModel>>(body)` — unknown fields are dropped automatically.
+
+## Conventions
+
+- Use `System.Text.Json` (`System.Text.Json.JsonSerializer`) throughout. Do not add `Newtonsoft.Json`.
