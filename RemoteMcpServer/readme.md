@@ -30,16 +30,68 @@ There is no `ApiKey` setting — each customer supplies their own key at connect
 
 ## Deploying to Azure App Service
 
-A GitHub Actions workflow (`.github/workflows/deploy-remote-mcp-server.yml`) builds and deploys the server automatically on every push to `main` that touches `RemoteMcpServer/`. You can also trigger it manually from the GitHub Actions UI.
+### 1. Create the App Service
 
-Add these two secrets in your GitHub repo under **Settings → Secrets and variables → Actions**:
+```bash
+# Set these for your environment
+RESOURCE_GROUP=my-resource-group
+APP_NAME=my-ferretly-mcp-server
+APP_PLAN=my-ferretly-mcp-plan
+LOCATION=eastus
 
-| Secret | Where to get it |
-|--------|-----------------|
-| `AZURE_WEBAPP_NAME` | The name of your App Service resource in Azure |
-| `AZURE_WEBAPP_PUBLISH_PROFILE` | Azure portal → your App Service → **Get publish profile** — paste the entire contents of the downloaded XML file |
+# Create resource group (skip if it already exists)
+az group create --name $RESOURCE_GROUP --location $LOCATION
 
-The workflow publishes a framework-dependent `linux-x64` build, so the App Service must have the .NET 8 runtime installed. In Azure portal, set the **Stack** to **.NET** and **Version** to **.NET 8** under **Configuration → General settings**.
+# Create App Service plan (Linux, free tier — scale up as needed)
+az appservice plan create \
+  --name $APP_PLAN \
+  --resource-group $RESOURCE_GROUP \
+  --is-linux \
+  --sku F1
+
+# Create the web app with .NET 8 runtime
+az webapp create \
+  --name $APP_NAME \
+  --resource-group $RESOURCE_GROUP \
+  --plan $APP_PLAN \
+  --runtime "DOTNETCORE:8.0"
+```
+
+### 2. Retrieve the server URL
+
+```bash
+az webapp show \
+  --name $APP_NAME \
+  --resource-group $RESOURCE_GROUP \
+  --query defaultHostName \
+  --output tsv
+```
+
+The MCP endpoint will be `https://<defaultHostName>/mcp`.
+
+### 3. Retrieve the publish profile
+
+```bash
+az webapp deployment list-publishing-profiles \
+  --name $APP_NAME \
+  --resource-group $RESOURCE_GROUP \
+  --xml
+```
+
+Copy the entire XML output and save it as the `AZURE_WEBAPP_PUBLISH_PROFILE` secret in your GitHub repo.
+
+### 4. Add GitHub secrets
+
+Add these two secrets under **Settings → Secrets and variables → Actions** in your GitHub repo:
+
+| Secret | Value |
+|--------|-------|
+| `AZURE_WEBAPP_NAME` | The value you used for `$APP_NAME` above |
+| `AZURE_WEBAPP_PUBLISH_PROFILE` | The XML output from step 3 |
+
+The GitHub Actions workflow (`.github/workflows/deploy-remote-mcp-server.yml`) will deploy automatically on every push to `main` that touches `RemoteMcpServer/`, or you can trigger it manually from the GitHub Actions UI.
+
+The workflow publishes a framework-dependent `linux-x64` build — the `.NET 8` runtime is provided by the App Service plan created above.
 
 ## Publishing a self-contained binary
 
