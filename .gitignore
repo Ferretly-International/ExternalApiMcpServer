@@ -22,6 +22,9 @@ packages/
 launchSettings.json
 local.settings.json
 
+# Claude Code local settings
+.claude/settings.local.json
+
 # Rider
 .idea/
 
