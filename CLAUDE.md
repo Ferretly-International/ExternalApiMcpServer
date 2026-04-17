@@ -45,7 +45,7 @@ There are no test or lint commands — the projects use standard .NET CLI only.
 
 ### RemoteMcpServer
 
-**`Program.cs`** — Uses `WebApplication` (ASP.NET Core). Registers `HttpClient` with only `BaseUrl` (no API key). Registers `IHttpContextAccessor`. Starts an MCP server with HTTP transport and maps MCP at the default route via `app.MapMcp()`.
+**`Program.cs`** — Uses `WebApplication` (ASP.NET Core). Registers `HttpClient` with only `BaseUrl` (no API key). Registers `IHttpContextAccessor`. Starts an MCP server with HTTP transport and maps MCP at the root (`/`) via `app.MapMcp()` — no path argument means the MCP endpoint is the base URL itself, not `/mcp`.
 
 **`FerretlyApiTools.cs`** — Same 13 tools. `IHttpContextAccessor` is injected alongside `IHttpClientFactory`. The private `GetAsync` helper reads `X-Api-Key` from the **incoming** HTTP request headers and adds it to each outgoing Ferretly request — this is how each customer's key is forwarded without server-side storage.
 
