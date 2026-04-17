@@ -67,7 +67,7 @@ az webapp show \
   --output tsv
 ```
 
-The MCP endpoint will be `https://<defaultHostName>/mcp`.
+The MCP endpoint will be `https://<defaultHostName>` (the root path — `app.MapMcp()` with no argument maps to `/`).
 
 ### 3. Retrieve the publish profile
 
@@ -116,7 +116,7 @@ Add the server to your Claude Code MCP configuration in `.claude/settings.json` 
   "mcpServers": {
     "ferretly": {
       "type": "http",
-      "url": "https://your-server.com/mcp",
+      "url": "https://your-server.azurewebsites.net",
       "headers": {
         "X-Api-Key": "YOUR_FERRETLY_API_KEY"
       }
@@ -125,7 +125,7 @@ Add the server to your Claude Code MCP configuration in `.claude/settings.json` 
 }
 ```
 
-Replace `https://your-server.com/mcp` with your deployed server URL and `YOUR_FERRETLY_API_KEY` with the customer's actual key.
+Replace `https://your-server.azurewebsites.net` with your deployed server URL and `YOUR_FERRETLY_API_KEY` with the customer's actual key.
 
 To avoid committing the key to source control, use an environment variable reference:
 
@@ -134,7 +134,7 @@ To avoid committing the key to source control, use an environment variable refer
   "mcpServers": {
     "ferretly": {
       "type": "http",
-      "url": "https://your-server.com/mcp",
+      "url": "https://your-server.azurewebsites.net",
       "headers": {
         "X-Api-Key": "${FERRETLY_API_KEY}"
       }
@@ -144,6 +144,42 @@ To avoid committing the key to source control, use an environment variable refer
 ```
 
 Then set `FERRETLY_API_KEY` in your shell environment before launching Claude Code.
+
+## Wiring up to Claude Desktop
+
+Claude Desktop does not support the native `url`/`headers` MCP config format — it requires a local process as a bridge. The `mcp-remote` npm package handles this.
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (LTS recommended)
+- `mcp-remote` installed globally:
+
+```bash
+npm install -g mcp-remote
+```
+
+> **Windows note:** Do not use `npx mcp-remote` in the Claude Desktop config. If Node.js is installed in `C:\Program Files\nodejs` (the default), `npx` resolves to a path with a space that Claude Desktop passes unquoted to `cmd.exe`, causing a "not recognized" error. Installing `mcp-remote` globally places it in `%APPDATA%\npm\` (no spaces) and avoids the problem.
+
+### Configuration
+
+Add the following to `claude_desktop_config.json` (open it from Claude Desktop → Settings → Developer):
+
+```json
+{
+  "mcpServers": {
+    "ferretly-remote": {
+      "command": "mcp-remote",
+      "args": [
+        "https://your-server.azurewebsites.net",
+        "--header",
+        "X-Api-Key: YOUR_FERRETLY_API_KEY"
+      ]
+    }
+  }
+}
+```
+
+Replace `https://your-server.azurewebsites.net` with your deployed server URL and `YOUR_FERRETLY_API_KEY` with the customer's actual key. Restart Claude Desktop after saving.
 
 ## Wiring up to Claude.ai
 
